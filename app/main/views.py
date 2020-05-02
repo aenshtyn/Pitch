@@ -1,14 +1,12 @@
-from flask import render_template,request,redirect,url_for
-from . import main
-from ..models import Comment
+from flask import render_template
+from app import app
+from .models import comments
 from .forms import CommentForm
-from ..requests import get_pitches,get_pitch,search_pitch
-
 
 Comment = comment.Comment
 
 # Views
-@main.route('/')
+@app.route('/')
 def index():
 
     '''
@@ -17,7 +15,7 @@ def index():
     title = "Home - Post a picth and review others!"
     return render_template('index.html',title = title)
 
-@main.route('/pitch/<id>')
+@app.route('/pitch/<id>')
 def pitch(id):
 
     '''
@@ -30,7 +28,7 @@ def pitch(id):
     return render_template('pitch.html', title = title, pitch = pitch, comments = comments )
 
 
-@main.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
+@app.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
 def new_comment(id):
     form = CommentForm()
     pitch = get_pitch(id)
