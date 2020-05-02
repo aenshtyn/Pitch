@@ -1,0 +1,9 @@
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pitch-details">
+            <h3>{{ pitch.title }}</h3>
+
+            <p class="overview"> {{ pitch.overview }}</p>
+
+            <p class="ratings"> <b> {{ pitch.vote_average }}</b> - <i>{{ pitch.vote_count}} votes </i> </p>
+            <a class="ratings" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
+
+</div>
