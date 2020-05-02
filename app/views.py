@@ -15,13 +15,17 @@ def index():
     title = "Home - Post a picth and review others!"
     return render_template('index.html',title = title)
 
-@app.route('/profile/<user>')
-def profile(user):
+@app.route('/pitch/<id>')
+def pitch(id):
 
     '''
     View profile page function that returns the profile page and its pitches
     '''
-    return render_template('profile.html',id = user)
+    pitch = get_pitch(id)
+    title = f'{pitch.title}
+    comments = Comment.get_comment(pitch.id)
+
+    return render_template('pitch.html', title = title, pitch = pitch, comments = comments )
 
 
 @app.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
