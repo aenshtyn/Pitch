@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title> Lets Review some Pitches</title>
-        {% endif %}
-    </head>
-    <body>
-      <!-- Pitch section -->
+{% extends 'base.html'%}
+
+<!-- Content block -->
+{% block content %}
+
 
      <h2>Pickup Lines</h2>
      <hr/>
@@ -21,5 +15,4 @@
      <hr/>
 
 
-    </body>
-</html>
+{% endblock%}
