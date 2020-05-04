@@ -1,5 +1,5 @@
 # Project Name
-## 1MPitch (https://.herokuapp.com)/
+## 1MPitch (https://onemp.herokuapp.com)/
 
 
 #### Built by
@@ -67,7 +67,8 @@ This is a flask application that allows users to post one minute pitches and als
 
 ## Known Bugs
 
-The images arent showing as needed.
+finalizing on the app before deployment
+
 
 ## Technologies Used
 
