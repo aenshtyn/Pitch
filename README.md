@@ -1,5 +1,6 @@
 # Project Name
-## 1MPitch (https://onemp.herokuapp.com)/
+## 1MPitch
+ https://onemp.herokuapp.com
 
 
 #### Built by
