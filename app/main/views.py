@@ -1,12 +1,11 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,abort
+from ..models import User
 from . import main
+from .form import CommentForm, UpdateProfile
 from ..models import Comment
-from .forms import CommentForm
-from ..requests import get_pitches,get_pitch,search_pitch
-from flask_login import login_required
-
-
-Comment = comment.Comment
+from flask_login import login_required, current_user
+from .. import db
+import markdown2
 
 # Views
 @main.route('/')
@@ -15,34 +14,43 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
-    title = "Home - Post a picth and review others!"
+
+    title = 'Check out some Cool Pitches'
     return render_template('index.html',title = title)
 
-@main.route('/pitch/<id>')
-def pitch(id):
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
-    '''
-    View profile page function that returns the profile page and its pitches
-    '''
-    pitch = get_pitch(id)
-    title = f'{pitch.title}'
-    comments = Comment.get_comment(pitch.id)
+    if user is None:
+        abort(404)
 
-    return render_template('pitch.html', title = title, pitch = pitch, comments = comments )
+    return render_template("profile/profile.html", user = user)
 
-
-@main.route('/pitch/comment/new/<int:id>', methods = ['GET', 'POST'])
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
-def new_comment(id):
-    form = CommentForm()
-    pitch = get_pitch(id)
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
 
     if form.validate_on_submit():
-        name = form.name.data
-        comment = form.comment.data
-        new_comment = Comment(pitch.id,name,comment)
-        new_comment.save_comment()
-        return redirect(url_for('pitch',id = pitch.id ))
+        user.bio = form.bio.data
 
-    name = f'{pitch.name} comment'
-    return render_template('new_comment.html', name = name, comment_form = form, pitch = pitch)
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update.html',form =form)
+
+
+@main.route('/comment/<int:id>')
+def single_comment(id):
+    comment=Comment.query.get(id)
+    if comment is None:
+        abort(404)
+    format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('comment.html',comment = comment,format_comment=format_comment)
