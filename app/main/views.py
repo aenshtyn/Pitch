@@ -2,8 +2,8 @@ from flask import render_template,request,redirect,url_for,abort
 from ..models import User
 from . import main
 from .form import CommentForm, UpdateProfile
-from ..models import Comment
-from flask_login import login_required, current_user
+from ..models import Comment, Role, Pitch, User
+from flask_login import login_required,current_user
 from .. import db
 import markdown2
 
@@ -14,6 +14,12 @@ def index():
     '''
     View root page function that returns the index page and its data
     '''
+    pitches = Pitch.query.all()
+    pickup = Pitch.query.filter_by(category = 'pickup').all()
+    interview = Pitch.query.filter_by(category = 'interviews').all()
+    product = Pitch.query.filter_by(category = 'product').all()
+    promotion = Pitch.query.filter_by(category = 'promotion').all()
+
 
     title = 'Check out some Cool Pitches'
     return render_template('index.html',title = title)
@@ -21,6 +27,8 @@ def index():
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
+    user_id = current_user._get_current_object().id
+    posts = Pitch.query.filter_by(user_id = user_id).all()
 
     if user is None:
         abort(404)
@@ -30,6 +38,7 @@ def profile(uname):
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
+    form = UpdateProfile()
     user = User.query.filter_by(username = uname).first()
     if user is None:
         abort(404)
@@ -47,10 +56,17 @@ def update_profile(uname):
     return render_template('profile/update.html',form =form)
 
 
-@main.route('/comment/<int:id>')
-def single_comment(id):
-    comment=Comment.query.get(id)
-    if comment is None:
-        abort(404)
-    format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('comment.html',comment = comment,format_comment=format_comment)
+@main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data
+        pitch_id = pitch_id
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
+        new_comment.save_c()
+        return redirect(url_for('.comment', pitch_id = pitch_id))
+    return render_template('new_comment.html', form =form, pitch = pitch,all_comments=all_comments)
