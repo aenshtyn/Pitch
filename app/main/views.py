@@ -1,11 +1,9 @@
-from flask import render_template,request,redirect,url_for,abort
-from ..models import User
+from flask import Flask, render_template,request,redirect,url_for,abort
 from . import main
 from .form import CommentForm, UpdateProfile
 from ..models import Comment, Role, Pitch, User
-from flask_login import login_required,current_user
+from flask_login import login_required,current_user, LoginManager
 from .. import db
-import markdown2
 
 # Views
 @main.route('/')
@@ -21,8 +19,7 @@ def index():
     promotion = Pitch.query.filter_by(category = 'promotion').all()
 
 
-    title = 'Check out some Cool Pitches'
-    return render_template('index.html',title = title)
+    return render_template('index.html', pitches = pitches, pickup = pickup, interview = interview, product = product, promotion = promotion)
 
 @main.route('/user/<uname>')
 def profile(uname):
