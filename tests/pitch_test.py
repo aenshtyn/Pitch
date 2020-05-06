@@ -1,17 +1,13 @@
 import unittest
+from app.models import Pitch
 
-from app.models import User
 
-class UserTest(unittest.TestCase):
+class PitchTest (unittest.TestCase):
+
     def setUp(self):
-        self.new_user = User(username='aenshtyn',password='11111')
 
-    def test_password_setter(self):
-        self.assertTrue(self.new_user.password is not None)
+        self.new_pitch = Pitch(14, 'Motivational', 'Stay back', 'Keep away from trouble', 'Moha' )
 
-    def test_no_access_password(self):
-        with self.assertRaises(AttributeError):
-            self.new_user.password
+    def test_instance(self):
 
-    def test_password_verification(self):
-        self.assertTrue(self.new_user.verify_password('qwerty'))
+        self.assertTrue(isinstance(self.new_pitch, Pitch))

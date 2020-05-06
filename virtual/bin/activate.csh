@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/home/mohamed/Documents/Moringa-School-Projects/Moringa Core/Week 5/IP/IP 2/Pitch/virtual"
+setenv VIRTUAL_ENV "/home/mohamed/Documents/Moringa-School-Projects/Moringa Core/Week 5/IP/IP3/pitch/virtual"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

@@ -1,9 +1,9 @@
-from flask import render_template,redirect,url_for, flash,request
 from . import auth
 from ..models import User
 from .. import db
-from flask_login import login_user, logout_user,login_required
+from flask import render_template,redirect,url_for, flash,request
 from .forms import LoginForm,RegistrationForm
+from flask_login import login_user,logout_user,login_required
 from ..email import mail_message
 
 @auth.route('/login',methods=['GET','POST'])
@@ -17,6 +17,7 @@ def login():
 
         flash('Invalid username or Password')
 
+    title = "watchlist login"
     return render_template('auth/login.html',login_form = login_form,title=title)
 
 @auth.route('/register',methods = ["GET","POST"])

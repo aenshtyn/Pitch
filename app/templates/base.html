@@ -2,8 +2,13 @@
 
 <!-- Navbar block  -->
 {% block navbar %}
-    {% include "navbar.html" %}
+    {% include 'navbar.html' %}
 {% endblock %}
 
-    {% block content %}
+{%block styles %}
+  {{super()}}
+  <!--Importing the simple mde css and js files  -->
+  {{ simplemde.css}}
+  {{ simplemde.js }}
+
 {% endblock %}

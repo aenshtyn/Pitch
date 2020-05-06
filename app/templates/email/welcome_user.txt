@@ -1,6 +1,3 @@
 Hello {{user.username}}
-
-Welcome to 1mP. One Minute Pitches.
-We have just seen you have signed up for our application and want to welcome you to the family.
-
-Please enjoy the pitches and also try to submit some of your own
+Welcome to One Minute Pitches
+We have just seen you have signed up for our application and want to welcome you to the family. Please enjoy.
