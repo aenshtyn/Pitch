@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+<!-- Content block -->
+{% block content %}
+<div class="container">
+
+    <!-- Poster background -->
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" >
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pitch-details">
+            <h3>{{ pitch.title }}</h3>
+
+            <p class="overview"> {{ pitch.content }}</p>
+            <p class="ratings"> <b> {{ pitch.upvotes }}</b> - <i>{{ pitch.downvotes}} votes </i> </p>
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

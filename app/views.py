@@ -10,6 +10,7 @@ def index():
     '''
 
     title = 'Check out some Cool Pitches'
+    
     return render_template('index.html',title = title)
 
 @app.route('/user/<name>')

@@ -23,10 +23,11 @@ This is a flask application that allows users to post one minute pitches and als
 ## Specifications
 | Behaviour | Input | Output |
 | :---------------- | :---------------: | ------------------: |
-| Display news sources | **On page load** | List of various news sources is displayed per category |
-| Display articles from a news source | **Click a news source** | Redirected to a page with a list of articles from the source |
-| Display the preview of an article | **On page load** | Each article displays an image, title, description and publication date |
-| Read an entire article | **Click an article** | Redirected to the news source's site to read the entire article |
+| Load the page | **On page load** | Get all posts, Select between signup and login|
+| Select SignUp| **Email**,**Username**,**Password** | Redirect to login|
+| Select Login | **Username** and **password** | Redirect to page with app pitches based on categories and commenting section|
+| Select comment button | **Comment** | Form that you input your comment|
+| Click on submit |  | Redirect to all comments tamplate with your comment and other comments|
 
 ## Setup/Installation Requirements
 
@@ -67,7 +68,7 @@ This is a flask application that allows users to post one minute pitches and als
 
 ## Known Bugs
 
-finalizing on the app before deployment
+The pitches arent loading
 
 
 ## Technologies Used
