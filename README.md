@@ -1,5 +1,5 @@
 # Project Name
-## 1MPitch (https://onemp.herokuapp.com)/
+## 1MPitch https://onemp.herokuapp.com
 
 
 #### Built by
@@ -68,7 +68,7 @@ This is a flask application that allows users to post one minute pitches and als
 
 ## Known Bugs
 
-The pitches arent loading
+sqlalchemy.exc error No foreign keys app_error
 
 
 ## Technologies Used
